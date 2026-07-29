@@ -13,6 +13,7 @@ djangorestframework = "^3.17.1"
 python-dotenv = "^1.2.2"
 psycopg2-binary = "^2.9.12"
 djangorestframework-stubs = "^3.17.1"
+pillow = "^12.3.0"
 
 [build-system]
 requires = ["poetry-core"]

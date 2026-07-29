@@ -55,7 +55,7 @@ class User(AbstractUser):
     city = models.CharField(
         max_length=20,
         verbose_name="Город",
-        blank=True,  # Можно не указывать страну.
+        blank=True,  # Поле необязательно (можно оставить пустым)..
         # null=False по умолчанию -> в БД будет храниться "" для пустого значения.
     )
 

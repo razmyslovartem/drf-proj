@@ -2,7 +2,8 @@
 
 from django.contrib import admin
 
-from .models import Course, Lesson
+from .models import Course
+from .models import Lesson
 
 
 @admin.register(Course)
