@@ -12,6 +12,7 @@ django = ">=5.1,<5.2"
 djangorestframework = "^3.17.1"
 python-dotenv = "^1.2.2"
 psycopg2-binary = "^2.9.12"
+djangorestframework-stubs = "^3.17.1"
 
 [build-system]
 requires = ["poetry-core"]
