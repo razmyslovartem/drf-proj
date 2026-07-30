@@ -40,7 +40,7 @@
 ```bash
 # клонировать репозиторий
 git clone https://github.com/razmyslovartem/drf-proj.git
-cd sky_tbook
+cd drf-proj
 
 # установить зависимости через Poetry
 poetry install
