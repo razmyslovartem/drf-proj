@@ -1,6 +1,6 @@
 # DRF-project
 
-Учебный Django‑проект LMS (Learning Management System) для онлайн‑курсов с API на Django REST Framework [web:102].
+Учебный Django‑проект LMS (Learning Management System) для онлайн‑курсов с API на Django REST Framework.
 
 ## Описание
 
@@ -15,7 +15,7 @@
 
 - Python 3.13
 - Django 5.1
-- Django REST Framework 3.17.1 [web:98]
+- Django REST Framework 3.17.1
 - PostgreSQL
 - Pillow (для работы с изображениями)
 - python-dotenv
@@ -43,8 +43,8 @@
 
 ```bash
 # клонировать репозиторий
-git clone https://github.com/Alex-399745146/sky_tbook.git
-cd sky_tbook
+git clone https://github.com/razmyslovartem/drf-proj.git
+cd drf-proj
 
 # установить зависимости через Poetry
 poetry install
@@ -85,7 +85,7 @@ poetry run python manage.py runserver
 Базовый префикс: `/app_users/`
 
 - `GET /app_users/payments/` — список платежей с фильтрацией и сортировкой:
-  - `?ordering=asc|desc` — порядок по дате оплаты [web:104].
+  - `?ordering=asc|desc` — порядок по дате оплаты.
   - `?course={id}` — фильтр по курсу.
   - `?lesson={id}` — фильтр по уроку.
   - `?method=cash|transfer` — фильтр по способу оплаты.
@@ -101,4 +101,4 @@ poetry run python manage.py runserver
 
 ## Статус
 
-Проект используется для выполнения домашних заданий по Django/DRF, постепенно расширяется функционалом LMS и интеграцией платежей [web:105].
+Проект используется для выполнения домашних заданий по Django/DRF, постепенно расширяется функционалом LMS и интеграцией платежей.

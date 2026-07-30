@@ -1,8 +1,9 @@
 # app_users/views.py
 
-from rest_framework.generics import ListAPIView
-from rest_framework.filters import SearchFilter, OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import OrderingFilter
+from rest_framework.filters import SearchFilter
+from rest_framework.generics import ListAPIView
 
 from .models import Payment
 from .serializers import PaymentSerializer
@@ -16,11 +17,11 @@ class PaymentListAPIView(ListAPIView):
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
 
     # фильтрация по полям (курс, урок, способ оплаты)
-    filterset_fields = ['paid_course', 'paid_lesson', 'payment_method']
+    filterset_fields = ["paid_course", "paid_lesson", "payment_method"]
 
     # поиск по email пользователя
-    search_fields = ['user__email']
+    search_fields = ["user__email"]
 
     # сортировка по дате и сумме
-    ordering_fields = ['payment_date', 'amount']
-    ordering = ['-payment_date']  # дефолт — новые сверху
+    ordering_fields = ["payment_date", "amount"]
+    ordering = ["-payment_date"]  # дефолт — новые сверху

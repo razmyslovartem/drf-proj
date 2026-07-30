@@ -2,7 +2,10 @@
 
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from app_materials.models import Course, Lesson
+
+from app_materials.models import Course
+from app_materials.models import Lesson
+
 from .managers import UserManager
 
 # вынес менеджер в managers.py согласно лучших практик кастомный менеджер необходим
