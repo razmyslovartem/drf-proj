@@ -16,6 +16,7 @@ djangorestframework-stubs = "^3.17.1"
 pillow = "^12.3.0"
 django-filter = ">=25.0,<26.0"
 djangorestframework-simplejwt = "^5.5.1"
+coverage = "^7.15.3"
 
 [build-system]
 requires = ["poetry-core"]
