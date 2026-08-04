@@ -45,11 +45,11 @@ class CourseSerializer(serializers.ModelSerializer):
             "is_subscribed",
         )
 
-    def get_lessons_count(self, obj):
+    def get_lessons_count(self, obj) -> int:
         # obj — это конкретный Course
         return obj.lessons.count()
 
-    def get_is_subscribed(self, obj):
+    def get_is_subscribed(self, obj) -> bool:
         """
         Возвращает True/False, подписан ли текущий пользователь на курс.
         """
@@ -59,3 +59,11 @@ class CourseSerializer(serializers.ModelSerializer):
 
         user = request.user
         return Subscription.objects.filter(user=user, course=obj).exists()
+
+
+class CourseSubscriptionToggleRequestSerializer(serializers.Serializer):
+    course_id = serializers.IntegerField()
+
+
+class CourseSubscriptionToggleResponseSerializer(serializers.Serializer):
+    message = serializers.CharField()

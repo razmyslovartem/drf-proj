@@ -17,6 +17,9 @@ pillow = "^12.3.0"
 django-filter = ">=25.0,<26.0"
 djangorestframework-simplejwt = "^5.5.1"
 coverage = "^7.15.3"
+spectacular = "^0.4.0"
+drf-spectacular = "^0.30.0"
+stripe = "^15.4.0"
 
 [build-system]
 requires = ["poetry-core"]

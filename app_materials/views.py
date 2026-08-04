@@ -1,6 +1,7 @@
 # app_materials/views.py
 
 from django.shortcuts import get_object_or_404
+from drf_spectacular.utils import extend_schema
 from rest_framework import generics
 from rest_framework import status
 from rest_framework import viewsets
@@ -16,6 +17,8 @@ from .models import Lesson
 from .models import Subscription
 from .paginators import CourseLessonPagination
 from .serializers import CourseSerializer
+from .serializers import CourseSubscriptionToggleRequestSerializer
+from .serializers import CourseSubscriptionToggleResponseSerializer
 from .serializers import LessonSerializer
 
 
@@ -123,6 +126,10 @@ class LessonDestroyAPIView(generics.DestroyAPIView):
     permission_classes = [IsAuthenticated, IsOwner & ~IsModer]
 
 
+@extend_schema(
+    request=CourseSubscriptionToggleRequestSerializer,
+    responses={200: CourseSubscriptionToggleResponseSerializer},
+)
 class CourseSubscriptionToggleView(APIView):
     """
     Эндпоинт для установки/снятия подписки на курс текущего пользователя.
@@ -133,17 +140,9 @@ class CourseSubscriptionToggleView(APIView):
 
     permission_classes = [IsAuthenticated]
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, course_id, *args, **kwargs):
         user = request.user
-        course_id = request.data.get("course_id")
-
-        if not course_id:
-            return Response(
-                {"message": "Не указан идентификатор курса (course_id)."},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-
-        course_item = get_object_or_404(Course, pk=course_id)
+        course_item = get_object_or_404(Course, pk=course_id)  # 404 error, если курса нет
 
         subs_qs = Subscription.objects.filter(user=user, course=course_item)
 
