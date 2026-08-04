@@ -1,6 +1,7 @@
 # app_users/permissions.py
 
 from rest_framework.permissions import BasePermission
+from rest_framework.permissions import SAFE_METHODS
 
 
 class IsModer(BasePermission):
@@ -20,5 +21,8 @@ class IsOwner(BasePermission):
 
     def has_object_permission(self, request, view, obj):
         user = request.user
-        # предполагаем, что у obj есть поле owner
-        return user.is_authenticated and getattr(obj, "owner", None) == user
+        owner = getattr(obj, "owner", None)
+
+        # для этого домашнего задания считаем владельцем того,
+        # кого сохранили в поле owner
+        return user.is_authenticated and owner == user

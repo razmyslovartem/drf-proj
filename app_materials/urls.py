@@ -4,6 +4,7 @@ from django.urls import include
 from django.urls import path
 from rest_framework.routers import DefaultRouter
 
+from .views import CourseSubscriptionToggleView
 from .views import CourseViewSet
 from .views import LessonCreateAPIView
 from .views import LessonDestroyAPIView
@@ -23,4 +24,9 @@ urlpatterns = [
     path("lessons/<int:pk>/", LessonRetrieveAPIView.as_view(), name="lesson-detail"),
     path("lessons/<int:pk>/update/", LessonUpdateAPIView.as_view(), name="lesson-update"),
     path("lessons/<int:pk>/delete/", LessonDestroyAPIView.as_view(), name="lesson-delete"),
+    path(
+        "courses/subscription-toggle/",
+        CourseSubscriptionToggleView.as_view(),
+        name="course-subscription-toggle",
+    ),
 ] + router.urls
