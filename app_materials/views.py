@@ -20,6 +20,7 @@ from .serializers import CourseSerializer
 from .serializers import CourseSubscriptionToggleRequestSerializer
 from .serializers import CourseSubscriptionToggleResponseSerializer
 from .serializers import LessonSerializer
+from .tasks import send_course_update_email_task
 
 
 class CourseViewSet(viewsets.ModelViewSet):
@@ -56,6 +57,14 @@ class CourseViewSet(viewsets.ModelViewSet):
             permission_classes = [IsAuthenticated]
 
         return [permission() for permission in permission_classes]
+
+    def perform_update(self, serializer):
+        """
+        Дополнительная логика после успешного обновления курса:
+        запускаем Celery-задачу отправки писем подписчикам.
+        """
+        course = serializer.save()  # Сохраняем курс.
+        send_course_update_email_task.delay(course.id)
 
 
 class LessonListAPIView(generics.ListAPIView):
