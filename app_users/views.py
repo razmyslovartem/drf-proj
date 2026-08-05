@@ -1,17 +1,25 @@
 # app_users/views.py
 
 from django.contrib.auth import get_user_model
-from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import generics, status, viewsets
-from rest_framework.filters import OrderingFilter, SearchFilter
+from rest_framework import generics
+from rest_framework import status
+from rest_framework import viewsets
+from rest_framework.filters import OrderingFilter
+from rest_framework.filters import SearchFilter
 from rest_framework.generics import ListAPIView
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from .models import Payment
-from .serializers import CreatePaymentSerializer, PaymentSerializer, UserRegisterSerializer, UserSerializer
-from .services import create_stripe_checkout_session, create_stripe_price, create_stripe_product
+from .serializers import CreatePaymentSerializer
+from .serializers import PaymentSerializer
+from .serializers import UserRegisterSerializer
+from .serializers import UserSerializer
+from .services import create_stripe_checkout_session
+from .services import create_stripe_price
+from .services import create_stripe_product
 
 User = get_user_model()
 
