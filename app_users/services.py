@@ -6,8 +6,6 @@ import stripe
 from app_materials.models import Course
 from app_materials.models import Lesson
 
-from .models import Payment
-
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 

@@ -7,7 +7,6 @@ from rest_framework.test import APITestCase
 
 from .models import Course
 from .models import Lesson
-from .models import Subscription
 
 User = get_user_model()
 

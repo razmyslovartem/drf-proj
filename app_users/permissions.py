@@ -1,7 +1,6 @@
 # app_users/permissions.py
 
 from rest_framework.permissions import BasePermission
-from rest_framework.permissions import SAFE_METHODS
 
 
 class IsModer(BasePermission):
