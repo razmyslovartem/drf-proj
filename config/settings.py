@@ -3,11 +3,15 @@ import os
 from pathlib import Path
 from typing import Any
 
-from dotenv import load_dotenv
+# Загружаем .env только локально (не в Docker)
+IN_DOCKER = os.path.exists("/.dockerenv") or os.getenv("DOCKER_CONTAINER")
+
+if not IN_DOCKER:
+    from dotenv import load_dotenv
+
+    load_dotenv(override=True, encoding="utf-8")
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-load_dotenv(override=True, encoding="utf-8")
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
