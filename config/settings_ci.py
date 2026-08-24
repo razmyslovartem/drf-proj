@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-from .settings import *  # noqa: F403
+from .settings import *  # noqa: F403, F401
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
