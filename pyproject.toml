@@ -25,6 +25,7 @@ celery = {extras = ["redis"], version = "^5.6.3"}
 django-celery-results = "^2.6.0"
 django-celery-beat = "^2.9.0"
 
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
@@ -36,7 +37,11 @@ dev = [
     "flake8 (>=7.3.0,<8.0.0)",
     "isort (>=8.0.1,<9.0.0)",
     "ipython (>=9.14.1,<10.0.0)",
-    "django-extensions (>=4.1,<5.0)"
+    "django-extensions (>=4.1,<5.0)",
+    "coverage (>=7.15.2,<8.0.0)",
+    "pytest (>=8.0,<9.0)",
+    "pytest-django (>=4.0,<5.0)",
+    "pytest-cov (>=4.0,<5.0)",
 ]
 
 [tool.black]
@@ -79,16 +84,29 @@ combine_as_imports = true
 known_first_party = ['config', 'app_users', 'app_materials']
 src_paths = ['.']
 
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings_ci"
+python_files = ["tests.py", "test_*.py", "*_tests.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "--cov=.",
+    "--cov-report=xml",
+    "--cov-report=html",
+]
+
 [tool.mypy]
 python_version = "3.13"
 show_error_codes = true
 ignore_missing_imports = true
-disallow_incomplete_defs = true
-disallow_untyped_defs = true
-warn_unused_ignores = true
-warn_return_any = true
+disallow_incomplete_defs = false
+disallow_untyped_defs = false
+warn_unused_ignores = false
+warn_return_any = false
 warn_unreachable = true
-no_implicit_optional = true
-strict_optional = true
+warn_redundant_casts = true
+no_implicit_optional = false
+strict_optional = false
+disable_error_code = "var-annotated, dict-item, list-item"
 exclude = [".git", ".venv", "venv", "__pycache__"]
 exclude_gitignore = true

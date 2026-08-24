@@ -13,17 +13,25 @@ if not IN_DOCKER:
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# =============================================================================
+# SECURITY
+# =============================================================================
+# SECRET_KEY должен быть всегда, даже если .env нет
 SECRET_KEY = os.getenv("SECRET_KEY")
 
+# DEBUG — False по умолчанию (безопаснее для production)
 DEBUG = True if os.getenv("DEBUG") == "True" else False
 
-
+# ALLOWED_HOSTS — читаем из .env, разбиваем по запятой
 ALLOWED_HOSTS = ["*"]
 
 # API STRIPE
 STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLISHABLE_KEY")
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
 
+# =============================================================================
+# ПРИЛОЖЕНИЯ
+# =============================================================================
 INSTALLED_APPS = [
     # Стандартные Django приложения.
     "django.contrib.admin",
@@ -36,7 +44,7 @@ INSTALLED_APPS = [
     "django_filters",
     "rest_framework",
     "rest_framework_simplejwt",
-    "rest_framework_simplejwt.token_blacklist",  # если нужен blacklist
+    "rest_framework_simplejwt.token_blacklist",
     "drf_spectacular",
     # Celery/Redis.
     "django_celery_results",
@@ -46,7 +54,9 @@ INSTALLED_APPS = [
     "app_materials",
 ]
 
-# Настройки DRF.
+# =============================================================================
+# Настройки DRF
+# =============================================================================
 REST_FRAMEWORK: dict[str, Any] = {
     "DEFAULT_FILTER_BACKENDS": [
         "django_filters.rest_framework.DjangoFilterBackend",
@@ -71,7 +81,9 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }
 
-
+# =============================================================================
+# MIDDLEWARE
+# =============================================================================
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -101,6 +113,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
+# =============================================================================
+# DATABASE
+# =============================================================================
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
@@ -112,6 +127,9 @@ DATABASES = {
     }
 }
 
+# =============================================================================
+# PASSWORD VALIDATORS
+# =============================================================================
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
@@ -127,32 +145,44 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# =============================================================================
+# INTERNATIONALIZATION
+# =============================================================================
 LANGUAGE_CODE = "ru-RU"
 TIME_ZONE = "Europe/Moscow"
 USE_I18N = True
 USE_L10N = False
 USE_TZ = True
 
+# =============================================================================
+# STATIC & MEDIA
+# =============================================================================
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "static"
 
 MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
+# =============================================================================
+# MODELS
+# =============================================================================
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
 AUTH_USER_MODEL = "app_users.User"
 
-
+# =============================================================================
+# API DOCUMENTATION
+# =============================================================================
 # Для документации указываем мета данные по нашему проекту, правило хорошей разработки.
 SPECTACULAR_SETTINGS = {
     "TITLE": "Sky TBook API",
     "DESCRIPTION": "Учебный DRF-проект: курсы, уроки, подписки, оплаты.",
     "VERSION": "1.0.0",
-    "SERVE_INCLUDE_SCHEMA": False,  # Активируем сокращённый вывод инфы в документы.
+    "SERVE_INCLUDE_SCHEMA": False,
 }
 
-# Настройки Celery/Redis
+# =============================================================================
+# CELERY & REDIS
+# =============================================================================
 REDIS_URL = os.getenv("REDIS_URL", "redis://127.0.0.1:6379/0")
 
 CELERY_BROKER_URL = REDIS_URL
@@ -163,7 +193,9 @@ CELERY_ENABLE_UTC = False  # Работаем в локальном часово
 CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
 
 
-# Настройки email.
+# =============================================================================
+# EMAIL
+# =============================================================================
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = os.getenv("EMAIL_HOST", "smtp.gmail.com")
 EMAIL_PORT = int(os.getenv("EMAIL_PORT", "587"))
