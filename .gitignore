@@ -219,3 +219,5 @@ __marimo__/
 # OS
 .DS_Store
 Thumbs.db
+/test_db.sqlite3
+/coverage.xml

@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand
 from django.utils import timezone
-from django_celery_beat.models import IntervalSchedule, PeriodicTask
+from django_celery_beat.models import IntervalSchedule
+from django_celery_beat.models import PeriodicTask
 
 
 class Command(BaseCommand):
